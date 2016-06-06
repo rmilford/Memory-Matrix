@@ -1,0 +1,101 @@
+.tile {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  float: left;
+}
+
+.rowOne{
+  overflow: hidden;
+}
+
+.tile:nth-of-type(1) {
+  background: #ee3e64;
+
+}
+
+.tile:nth-of-type(2) {
+  background: #44accf;
+}
+
+.tile:nth-of-type(3) {
+  background: #b7d84b;
+}
+.tile:nth-of-type(4) {
+  background: #315A54;
+}
+.tile:nth-of-type(5) {
+  background: #1B9AAA;
+}
+.tile:nth-of-type(6) {
+  background: #6184DB;
+}
+.rowTwo {
+  overflow: hidden;
+}
+
+.tile:nth-of-type(7) {
+  background: #DCCDE8;
+}
+
+.tile:nth-of-type(8) {
+  background: #3E2F5B;
+}
+
+.tile:nth-of-type(9) {
+  background: #BA5C12;
+}
+.tile:nth-of-type(10) {
+  background: #151E3F;
+}
+.tile:nth-of-type(11) {
+  background: #CFD186;
+}
+.tile:nth-of-type(12) {
+  background: #E3655B;
+}
+.rowThree {
+  overflow: hidden;
+}
+
+.tile:nth-of-type(13) {
+  background: #14BDEB;
+}
+
+.tile:nth-of-type(14) {
+  background: #A35B37;
+}
+
+.tile:nth-of-type(15) {
+  background: #2BC016;
+}
+.tile:nth-of-type(16) {
+  background: #8D3B72;
+}
+.tile:nth-of-type(17) {
+  background: #72E1D1;
+}
+.tile:nth-of-type(18) {
+  background: #D72638;
+}
+.rowFour{
+  overflow: hidden;
+}
+.tile:nth-of-type(19) {
+  background: #517664;
+}
+.tile:nth-of-type(20) {
+  background: #CACFD6;
+}
+.tile:nth-of-type(21) {
+  background: #9FD8CB;
+}
+.tile:nth-of-type(22) {
+  background: #E8DCB9;
+}
+.tile:nth-of-type(23) {
+  background: #C3DADB;
+}
+.tile:nth-of-type(24) {
+  background: #F2CEE6;
+}
