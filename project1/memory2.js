@@ -1,44 +1,45 @@
 "use strict";
-var userPoints = 0;  // this number will keep track of the user's score
-var arrayCards = [];  //this array will store all the cards used in the game
-var numCards = 0;  //number of cards face up to the user
-var cardPair = [];  //holds indicies of picked cards
-
-
+var userPoints = 0;
+var arrayCards = [];
 for(var i = 0; i < 12; i++){
   arrayCards.push(i,i)
   $("#memoryBoard").append('<div class = "tile">')
   $("#memoryBoard").append('<div class = "tile">')
 }
-
-
+//number of cards face up to the user
+var numCards = 0;
+var cardPair = [];
 
 $(document).ready(function() {
 
   //defining click event
-  //when a user clicks on a card, pickCard function is triggered
   $(".tile").on("click", pickCard);
-  //when a user click on a card,
-  $(".tile").on("click", startTimer);
+
 });
 
+//it should store the value of a deck of cards in an array
+
+function showValue() {
+
+}
 
 function pickCard () {
-  if (!($(this).hasClass('disabled')) && !($(this).hasClass('flip'))) {
-    //allows user to keep picking cards until two cards are face up
+  //allows user to keep picking cards until two cards are face up
+  if (!($(this).hasClass('disabled'))) {
     if (numCards < 2){
-    //making a variable & storing the num of the clicked tile/div
+    // var divIndex = $('div div div').index($(this));
       var divIndex = $('#memoryBoard .tile').index($(this));
-    //keeping track of what card was picked and storing it in cardPair
+    // console.log($('#memoryBoard .tile'))
       cardPair.push(divIndex);
-      //on the clicked tile, show the value, align, add class-- temporarily flipped over
-      $(this).html(arrayCards[divIndex]).addClass('flip');
-    //adds one more cards face up
+      $(this).html(arrayCards[divIndex]).css('text-align','center').addClass('flip');
+    // console.log(divIndex, arrayCards[divIndex]);
+    // console.log("Div index: " + divIndex)
+    //adds two the number of cards face up to the user
       numCards++;
       if(numCards === 2){
         setTimeout(function(){
           $(".flip").html('');
-        }, 1300);
+        }, 1000);
         compareCards();
       }
 
@@ -46,16 +47,12 @@ function pickCard () {
     //if the card has been flipped & not a match, unflip
 
       console.log('here!');
-      //flips over the two that were up that didnt match
       $('.flip').html("").removeClass('flip');
       numCards = 0;
     //get rid of the two cards already stored in cardPair
       cardPair.pop();
       cardPair.pop();
     }
-  }
-  if (userPoints===12) {
-    promptWinner();
   }
 }
 //need to do something to the CSS to active/deactive the CSS
@@ -64,18 +61,17 @@ function compareCards () {
   // if(arrayCards[cardPair[0]] != arrayCards[cardPair[1]]){
   if(arrayCards[cardPair[0]] === arrayCards[cardPair[1]]){
     userPoints++;
-    //access cards that are flipped and disable them so they remain face up
-    $('.flip').addClass('disabled').removeClass('flip');
+    $('.flip').removeClass('flip');
 
     console.log(userPoints);
-
-
+    //    numCards = 0;
   }
-//if two cards have been picked but dont match, they will be automatically put face down
+  // }
+  // $('.flip').html("").delay(300);
   var autoFlipCards = setTimeout(function(){
     $(".flip").html('');
-    $(".flip").removeClass('flip');
-  }, 1300);
+  }, 300);
+
 
 }
 
@@ -119,22 +115,4 @@ function playGame () {
 
   // console.log('last' + arrayCards);
 
-}
-//on users first click, start timer
-//store time in a variable
-// when the user matches all the cards, or promptWinner() is called, stop the timer
-var clock;
-  function startTimer (){
-  clock = setInterval(tictac, 1000)
-}
-
-function stopTimer (){
-
-}
-
-var counter = 0;
-function tictac(){
-counter++;
-// $("#clock").html(counter);
-//console.log(counter);
 }
