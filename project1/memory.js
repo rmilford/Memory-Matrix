@@ -4,11 +4,36 @@ var arrayCards = [];  //this array will store all the cards used in the game
 var numCards = 0;  //number of cards face up to the user
 var cardPair = [];  //holds indicies of picked cards
 
-
-for(var i = 0; i < 12; i++){
-  arrayCards.push(i,i)
-  $("#memoryBoard").append('<div class = "tile">')
-  $("#memoryBoard").append('<div class = "tile">')
+function makingTileBoard (){
+  var size = 0;
+//  alert('hello!!');
+//  debugger;
+  $(".intro").remove();
+  var difficulty = $('button').index($(this));
+  if(difficulty === 0){
+    size = 4;
+  }
+  else if(difficulty === 1){
+    size = 5;
+  }
+  else{
+    size = 6;
+  }
+  //this creates the first dynamic row
+  for(var i = 0; i < size-1; i++){
+    //this makes a row
+    $('#memoryBoard').append('<div class = "row"></div>')
+    //this INSERTS! divs into rows
+    for(var j = 0; j < size; j++){
+      //how do i make the array of cards inside these nested for loops
+//      arrayCards.push(Math.floor((i+j)/2));
+      $("#memoryBoard").append('<div class = "tile"></div>')
+    }
+  }
+  //this loops makes the array of cards
+  for(var i = 0; i < (size*(size-1)/2); i++) {
+    arrayCards.push(i,i);
+  }
 }
 
 
@@ -17,11 +42,45 @@ $(document).ready(function() {
 
   //defining click event
   //when a user clicks on a card, pickCard function is triggered
+  loadGame();
   $(".tile").on("click", pickCard);
   //when a user click on a card,
   $(".tile").on("click", startTimer);
+  $('button').on("click", makingTileBoard);
+
 });
 
+function loadGame (){
+  $("body").append('<div class = "intro name">Memory Matrix</div>').css({'padding-top': '30px', 'background-color': '#FFFFFF'})
+  $("body").append('<div class = "intro subHeader">Pick Your Poison</div>')
+  $('.name').animate({'top': '500px'}, 'slow');
+  $("body").append('<button class = "intro" type="button">Easy</button>').css({'margin-left': 'auto',
+  'margin-right': 'auto', 'color' : 'white', 'text-align' : 'center'})
+  $("body").append('<button class = "intro" type="button">Intermediate</button>').css({'margin-left': 'auto',
+  'margin-right': 'auto', 'color' : 'white', 'text-align' : 'center'})
+  $("body").append('<button class = "intro" type="button">Hard</button>').css({'margin-left': 'auto',
+  'margin-right': 'auto', 'color' : 'white', 'text-align' : 'center'})
+//  alert('in load game');
+//  $('button').on("click", makingTileBoard);
+
+}
+// function pickBoardSize() {
+//   //i need to make a
+//   //user picks size of their board and picks difficulty
+//   $("#buttonThatIHaveNotMadeYet").on("click", pickBoardSize);
+//
+//
+// //it should store the value of a deck of cards in an array
+// var easy = $(".tile").append();
+// var intermediate =
+// var hard =
+// var rowOne =
+// var rowTwo =
+// var rowThree =
+//
+//
+//
+// }
 
 function pickCard () {
   if (!($(this).hasClass('disabled')) && !($(this).hasClass('flip'))) {

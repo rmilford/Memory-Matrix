@@ -14,12 +14,18 @@ $(document).ready(function() {
 
   //defining click event
   $(".tile").on("click", pickCard);
-
+  //i need to make a
+  //user picks size of their board and picks difficulty
+  $("#buttonThatIHaveNotMadeYet").on("click", pickBoardSize);
 });
 
-//it should store the value of a deck of cards in an array
 
-function showValue() {
+//it should store the value of a deck of cards in an array
+var easy;
+var intermediate;
+var hard;
+function pickBoardSize() {
+  if($(this))
 
 }
 
