@@ -2,17 +2,19 @@
 color: white;
   }
 .subHeader {
+  font-family: 'Sacramento', cursive;
   margin: 50px;
-  font-size: 30px;
+  font-size: 63px;
 }
 [data-new-row="true"]{
   clear:both;
   /*the element is moved down to clear past both left and right floats.*/
 }
 button {
+    font-family: 'Montserrat', sans-serif;
     margin-right: 30px;
     margin-left: 30px;
-    margin-top: 120px;
+    margin-top: 80px;
     background-color: #d3d3d3;
     -webkit-box-shadow: 10px 10px 46px -5px rgba(0,0,0,0.67);
     -moz-box-shadow: 10px 10px 46px -5px rgba(0,0,0,0.67);
@@ -31,13 +33,17 @@ button {
   }
 
 .name {
+  margin-top: 100px;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
-  font-size: 60px;
+  font-size: 130px;
   color: white;
+  font-family: 'Montserrat', sans-serif;
 }
 .tile {
+  /*font-family: 'Montserrat', sans-serif;*/
+
   /*position: absolute;*/
   /*margin-left: auto;
   margin-right: auto;*/
@@ -50,6 +56,10 @@ button {
   line-height: 200px;
   outline: solid;
   outline-color: white;
+}
+.clock{
+  float: right;
+  margin-right: 50px;
 }
 
 /*.tile:nth-of-type(1) {

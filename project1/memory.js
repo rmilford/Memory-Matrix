@@ -59,8 +59,8 @@ $(document).ready(function() {
 });
 
 function loadGame (){
-  $("body").append('<div class = "intro name">Memory Matrix</div>').css({'padding-top': '30px', 'background-color': '#C3DADB'})
-  $("body").append('<div class = "intro subHeader">Pick Your Poison</div>')
+  $("body").append('<div class = "intro name">MEMORY MATRiX</div>').css({'padding-top': '30px', 'background-color': '#C3DADB'})
+  $("body").append('<div class = "intro subHeader">pick your poison</div>')
   $('.name').animate({'top': '500px'}, 'slow');
   $("body").append('<button class = "intro" type="button">Easy</button>').css({'margin-left': 'auto',
   'margin-right': 'auto', 'color' : 'white', 'text-align' : 'center'})
