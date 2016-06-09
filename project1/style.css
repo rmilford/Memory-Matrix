@@ -47,7 +47,7 @@ button {
   width: 140px;
   height: 140px;
   display: inline;
-  float: left;
+  float: left; 
   font-size: 48px;
   /*text-align: center;*/
   line-height: 200px;
