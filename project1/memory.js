@@ -41,9 +41,10 @@ function makingTileBoard (){
   // for(var i = 0; i < (size*(size-1)/2); i++) {
   //   arrayCards.push(i,i);
   // }
+  $('.someButton').on('click', resetGame); //<-- need to work on this
   $(".tile").on("click", pickCard);
   //when a user click on a card,
-//  $(".tile").on("click", startTimer);
+ // $(".tile").on("click", startTimer);
   arrayCards = randomDeck(arrayCards);
   startTimer();
 }
@@ -182,12 +183,15 @@ function playGame () {
 //store time in a variable
 // when the user matches all the cards, or promptWinner() is called, stop the timer
 var clock;
+
+
   function startTimer (){
   clock = setInterval(tictac, 1000);
+
 }
 
 function stopTimer (){
-  debugger;
+  //debugger;
   var clock =  $(".clock").html();
   $(".clock").html(clock);
 
@@ -197,6 +201,10 @@ function stopTimer (){
 var counter = 0;
 function tictac(){
 counter++;
- $(".clock").html(counter);
-//console.log(counter);
+var min= Math.floor(counter/60);
+var sec= counter % 60;
+ $(".clock").html(min + ":" + sec);
+}
+function resetGame(){
+
 }
