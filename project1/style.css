@@ -44,10 +44,10 @@ button {
 }
 .tile {
 
-  width: 140px;
-  height: 140px;
+  width: 130px;
+  height: 130px;
   display: inline;
-  float: left; 
+  float: left;
   font-size: 48px;
   /*text-align: center;*/
   line-height: 200px;
@@ -61,6 +61,7 @@ button {
   height: 10px;
   width: 10px;
   float: right;
+  /*padding-top: 5px;*/
   margin-right: 50px;
   padding-right: 60px;
 }

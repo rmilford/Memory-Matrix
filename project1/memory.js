@@ -60,7 +60,7 @@ $(document).ready(function() {
 });
 
 function loadGame (){
-  $("body").append('<div class = "intro name">MEMORY MATRiX</div>').css({'padding-top': '30px', 'background-color': '#C3DADB'})
+  $("body").append('<div class = "intro name">MEMORY MATRiX</div>').css({'padding-top': '0px', 'background-color': '#C3DADB'})
   $("body").append('<div class = "intro subHeader">pick your poison</div>')
   $('.name').animate({'top': '500px'}, 'slow');
   $("body").append('<button class = "intro" type="button">Easy</button>').css({'margin-left': 'auto',
@@ -142,7 +142,7 @@ function compareCards () {
 function randomDeck (arrayCards) {
   var newArray = [];
   //make a random number
-  for(var j = 0; j < 5; j++){
+  for(var j = 0; j < 7; j++){
     for(var i = 0; i < size*(size-1); i++){
       var temp = arrayCards.pop();
       if(Math.random() > .5){
