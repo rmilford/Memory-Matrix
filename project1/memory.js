@@ -1,15 +1,16 @@
 "use strict";
 var userPoints = 0;  // this number will keep track of the user's score
 var arrayCards = [];  //this array will store all the cards used in the game
-var numCards = 0;  //number of cards face up to the user
+var numCardsFaceUp = 0;  //number of cards face up to the user
 var cardPair = [];  //holds indicies of picked cards
+var size = 0;
+var divColors = ['#57416B','#5A5387','#4873A6','#51A5D4','#42CAC6'];
+
+var currentColor = '';
 
 function makingTileBoard (){
-  var size = 0;
-//  alert('hello!!');
-//  debugger;
-  $(".intro").remove();
   var difficulty = $('button').index($(this));
+  $(".intro").remove();
   if(difficulty === 0){
     size = 4;
   }
@@ -20,38 +21,45 @@ function makingTileBoard (){
     size = 6;
   }
   //this creates the first dynamic row
-  for(var i = 0; i < size-1; i++){
-    //this makes a row
-    $('#memoryBoard').append('<div class = "row"></div>')
-    //this INSERTS! divs into rows
-    for(var j = 0; j < size; j++){
-      //how do i make the array of cards inside these nested for loops
-//      arrayCards.push(Math.floor((i+j)/2));
-      $("#memoryBoard").append('<div class = "tile"></div>')
+  for(var i = 0; i < size*(size-1); i++){
+    //if i is a multiple of size, this makes a row
+    var newRow = (i%size === 0);
+    if (newRow) {
+      currentColor = divColors.pop();
     }
+    console.log(newRow, i)
+
+    //this INSERTS! divs into rows
+
+      console.log(i)
+      //how do i make the array of cards inside these nested for loops
+      arrayCards.push(Math.floor((i)/2));
+      $("#memoryBoard").append('<div class="tile" data-new-row="'+newRow+'"  style="background-color:'+currentColor+';"></div>');
   }
   //this loops makes the array of cards
-  for(var i = 0; i < (size*(size-1)/2); i++) {
-    arrayCards.push(i,i);
-  }
+
+  // for(var i = 0; i < (size*(size-1)/2); i++) {
+  //   arrayCards.push(i,i);
+  // }
+  $(".tile").on("click", pickCard);
+  //when a user click on a card,
+//  $(".tile").on("click", startTimer);
+  arrayCards = randomDeck(arrayCards);
+  startTimer();
 }
 
 
 
 $(document).ready(function() {
 
-  //defining click event
   //when a user clicks on a card, pickCard function is triggered
   loadGame();
-  $(".tile").on("click", pickCard);
-  //when a user click on a card,
-  $(".tile").on("click", startTimer);
   $('button').on("click", makingTileBoard);
 
 });
 
 function loadGame (){
-  $("body").append('<div class = "intro name">Memory Matrix</div>').css({'padding-top': '30px', 'background-color': '#FFFFFF'})
+  $("body").append('<div class = "intro name">Memory Matrix</div>').css({'padding-top': '30px', 'background-color': '#C3DADB'})
   $("body").append('<div class = "intro subHeader">Pick Your Poison</div>')
   $('.name').animate({'top': '500px'}, 'slow');
   $("body").append('<button class = "intro" type="button">Easy</button>').css({'margin-left': 'auto',
@@ -64,28 +72,14 @@ function loadGame (){
 //  $('button').on("click", makingTileBoard);
 
 }
-// function pickBoardSize() {
-//   //i need to make a
-//   //user picks size of their board and picks difficulty
-//   $("#buttonThatIHaveNotMadeYet").on("click", pickBoardSize);
-//
-//
-// //it should store the value of a deck of cards in an array
-// var easy = $(".tile").append();
-// var intermediate =
-// var hard =
-// var rowOne =
-// var rowTwo =
-// var rowThree =
-//
-//
-//
-// }
+
 
 function pickCard () {
+  //alert('you are inside "pickCard func"');
   if (!($(this).hasClass('disabled')) && !($(this).hasClass('flip'))) {
     //allows user to keep picking cards until two cards are face up
-    if (numCards < 2){
+    //debugger;
+    if (numCardsFaceUp < 2){
     //making a variable & storing the num of the clicked tile/div
       var divIndex = $('#memoryBoard .tile').index($(this));
     //keeping track of what card was picked and storing it in cardPair
@@ -93,27 +87,28 @@ function pickCard () {
       //on the clicked tile, show the value, align, add class-- temporarily flipped over
       $(this).html(arrayCards[divIndex]).addClass('flip');
     //adds one more cards face up
-      numCards++;
-      if(numCards === 2){
-        setTimeout(function(){
-          $(".flip").html('');
-        }, 1300);
+      numCardsFaceUp++;
+      if(numCardsFaceUp === 2){
+        // setTimeout(function(){
+        //   $(".flip").html('');
+        // }, 1300);
         compareCards();
       }
 
     } else {
     //if the card has been flipped & not a match, unflip
-
-      console.log('here!');
+// alert("Why are we here?");
+      // debugger;
+      // console.log('here!');
       //flips over the two that were up that didnt match
       $('.flip').html("").removeClass('flip');
-      numCards = 0;
+      numCardsFaceUp = 0;
     //get rid of the two cards already stored in cardPair
       cardPair.pop();
       cardPair.pop();
     }
   }
-  if (userPoints===12) {
+  if (userPoints=== (size*(size-1)/2)) {
     promptWinner();
   }
 }
@@ -133,7 +128,11 @@ function compareCards () {
 //if two cards have been picked but dont match, they will be automatically put face down
   var autoFlipCards = setTimeout(function(){
     $(".flip").html('');
+    // alert('flipping!')
     $(".flip").removeClass('flip');
+    numCardsFaceUp = 0;
+    cardPair.pop();
+    cardPair.pop();
   }, 1300);
 
 }
@@ -143,7 +142,7 @@ function randomDeck (arrayCards) {
   var newArray = [];
   //make a random number
   for(var j = 0; j < 5; j++){
-    for(var i = 0; i < 24; i++){
+    for(var i = 0; i < size*(size-1); i++){
       var temp = arrayCards.pop();
       if(Math.random() > .5){
         //if the number is bigger than .5, push to new array
@@ -168,7 +167,7 @@ function randomDeck (arrayCards) {
 
 function promptWinner() {
   alert('You win!');
-
+  stopTimer();
 
 }
 
@@ -184,16 +183,20 @@ function playGame () {
 // when the user matches all the cards, or promptWinner() is called, stop the timer
 var clock;
   function startTimer (){
-  clock = setInterval(tictac, 1000)
+  clock = setInterval(tictac, 1000);
 }
 
 function stopTimer (){
+  debugger;
+  var clock =  $(".clock").html();
+  $(".clock").html(clock);
 
+;
 }
 
 var counter = 0;
 function tictac(){
 counter++;
-// $("#clock").html(counter);
+ $(".clock").html(counter);
 //console.log(counter);
 }

@@ -5,6 +5,10 @@ color: white;
   margin: 50px;
   font-size: 30px;
 }
+[data-new-row="true"]{
+  clear:both;
+  /*the element is moved down to clear past both left and right floats.*/
+}
 button {
     margin-right: 30px;
     margin-left: 30px;
@@ -34,11 +38,12 @@ button {
   color: white;
 }
 .tile {
-  position: relative;
-  margin-left: auto;
-  margin-right: auto;
+  /*position: absolute;*/
+  /*margin-left: auto;
+  margin-right: auto;*/
   width: 150px;
   height: 150px;
+  display: inline;
   float: left;
   font-size: 48px;
   text-align: center;
@@ -47,7 +52,7 @@ button {
   outline-color: white;
 }
 
-.tile:nth-of-type(1) {
+/*.tile:nth-of-type(1) {
   background: #42CAC6;
 }
 
@@ -146,4 +151,4 @@ button {
 }
 .tile:nth-of-type(30) {
   background: #57416B;
-}
+}*/
