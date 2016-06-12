@@ -8,7 +8,21 @@ var divColors = ['#57416B','#5A5387','#4873A6','#51A5D4','#42CAC6'];
 
 var currentColor = '';
 
+
+var TileBoard = function(size) {
+	this.numCardsFaceUp = 0;
+	this.arrayCards = [];
+  this.userPoints = 0;  // this number will keep track of the user's score
+  this.cardPair = [];  //holds indicies of picked cards
+  this.deckSize = size;
+  this.divColors = ['#57416B','#5A5387','#4873A6','#51A5D4','#42CAC6'];
+  // this.currentColor = '';
+
+};
+
 function makingTileBoard (){
+  var currentColor = '';
+  var size = 0;
   var difficulty = $('button').index($(this));
   $(".intro").remove();
   if(difficulty === 0){
@@ -20,12 +34,14 @@ function makingTileBoard (){
   else{
     size = 6;
   }
+  var myTileBoard = new TileBoard(size);
+
   //this creates the first dynamic row
   for(var i = 0; i < size*(size-1); i++){
     //if i is a multiple of size, this makes a row
     var newRow = (i%size === 0);
     if (newRow) {
-      currentColor = divColors.pop();
+      currentColor = myTileBoard.divColors.pop();
     }
     console.log(newRow, i)
 
@@ -33,7 +49,8 @@ function makingTileBoard (){
 
       console.log(i)
       //how do i make the array of cards inside these nested for loops
-      arrayCards.push(Math.floor((i)/2));
+
+      myTileBoard.arrayCards.push(Math.floor((i)/2));
       $("#memoryBoard").append('<div class="tile" data-new-row="'+newRow+'"  style="background-color:'+currentColor+';"></div>');
   }
   //this loops makes the array of cards
@@ -41,11 +58,11 @@ function makingTileBoard (){
   // for(var i = 0; i < (size*(size-1)/2); i++) {
   //   arrayCards.push(i,i);
   // }
-  $('.someButton').on('click', resetGame); //<-- need to work on this
-  $(".tile").on("click", pickCard);
+  // $('.someButton').on('click', resetGame); //<-- need to work on this
+  $(".tile").on("click", myTileBoard.pickCard);
   //when a user click on a card,
  // $(".tile").on("click", startTimer);
-  arrayCards = randomDeck(arrayCards);
+  myTileBoard.arrayCards = myTileBoard.randomDeck();
   startTimer();
 }
 
@@ -139,7 +156,7 @@ function compareCards () {
 }
 
 //This function will randomize the order of cards of an input array
-function randomDeck (arrayCards) {
+function randomDeck () {
   var newArray = [];
   //make a random number
   for(var j = 0; j < 7; j++){
