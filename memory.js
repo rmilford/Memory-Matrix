@@ -157,6 +157,7 @@ function compareCards () {
 
 //This function will randomize the order of cards of an input array
 function randomDeck () {
+  var myRandomDeck = new TileBoard();
   var newArray = [];
   //make a random number
   for(var j = 0; j < 7; j++){
