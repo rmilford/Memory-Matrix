@@ -59,10 +59,10 @@ function makingTileBoard (){
   //   arrayCards.push(i,i);
   // }
   // $('.someButton').on('click', resetGame); //<-- need to work on this
-  $(".tile").on("click", myTileBoard.pickCard);
+  $(".tile").on("click", myTileBoard, myTileBoard.pickCard);//<--
   //when a user click on a card,
  // $(".tile").on("click", startTimer);
-  myTileBoard.arrayCards = myTileBoard.randomDeck();
+  myTileBoard = myTileBoard.randomDeck();
   startTimer();
 }
 
@@ -92,25 +92,26 @@ function loadGame (){
 }
 
 
-function pickCard () {
+TileBoard.prototype.pickCard = function (event) {
+  debugger;
   //alert('you are inside "pickCard func"');
   if (!($(this).hasClass('disabled')) && !($(this).hasClass('flip'))) {
     //allows user to keep picking cards until two cards are face up
     //debugger;
-    if (numCardsFaceUp < 2){
+    if (event.data.numCardsFaceUp < 2){
     //making a variable & storing the num of the clicked tile/div
       var divIndex = $('#memoryBoard .tile').index($(this));
     //keeping track of what card was picked and storing it in cardPair
-      cardPair.push(divIndex);
+      event.data.cardPair.push(divIndex);
       //on the clicked tile, show the value, align, add class-- temporarily flipped over
-      $(this).html(arrayCards[divIndex]).addClass('flip');
+      $(this).html(event.data.arrayCards[divIndex]).addClass('flip');
     //adds one more cards face up
-      numCardsFaceUp++;
-      if(numCardsFaceUp === 2){
+      event.data.numCardsFaceUp++;
+      if(event.data.numCardsFaceUp === 2){
         // setTimeout(function(){
         //   $(".flip").html('');
         // }, 1300);
-        compareCards();
+        event.data.compareCards();
       }
 
     } else {
@@ -120,26 +121,27 @@ function pickCard () {
       // console.log('here!');
       //flips over the two that were up that didnt match
       $('.flip').html("").removeClass('flip');
-      numCardsFaceUp = 0;
+      event.data.numCardsFaceUp = 0;
     //get rid of the two cards already stored in cardPair
-      cardPair.pop();
-      cardPair.pop();
+		debugger;
+      event.data.cardPair.pop();
+      event.data.cardPair.pop();
     }
   }
-  if (userPoints=== (size*(size-1)/2)) {
+  if (this.userPoints=== (this.deckSize*(this.deckSize-1)/2)) {
     promptWinner();
   }
 }
 //need to do something to the CSS to active/deactive the CSS
 //eventually add a timer to have them flip back
-function compareCards () {
+TileBoard.prototype.compareCards = function () {
   // if(arrayCards[cardPair[0]] != arrayCards[cardPair[1]]){
-  if(arrayCards[cardPair[0]] === arrayCards[cardPair[1]]){
-    userPoints++;
+  if(this.arrayCards[this.cardPair[0]] === this.arrayCards[this.cardPair[1]]){
+    this.userPoints++;
     //access cards that are flipped and disable them so they remain face up
     $('.flip').addClass('disabled').removeClass('flip');
 
-    console.log(userPoints);
+    console.log(this.userPoints);
 
 
   }
@@ -148,21 +150,21 @@ function compareCards () {
     $(".flip").html('');
     // alert('flipping!')
     $(".flip").removeClass('flip');
-    numCardsFaceUp = 0;
-    cardPair.pop();
-    cardPair.pop();
+    this.numCardsFaceUp = 0;
+    this.cardPair.pop();
+    this.cardPair.pop();
   }, 1300);
 
 }
 
 //This function will randomize the order of cards of an input array
-function randomDeck () {
-  var myRandomDeck = new TileBoard();
+TileBoard.prototype.randomDeck = function () {
+//  var myRandomDeck = new TileBoard();
   var newArray = [];
   //make a random number
   for(var j = 0; j < 7; j++){
     for(var i = 0; i < size*(size-1); i++){
-      var temp = arrayCards.pop();
+      var temp = this.arrayCards.pop();
       if(Math.random() > .5){
         //if the number is bigger than .5, push to new array
         newArray.push(temp);
@@ -173,13 +175,13 @@ function randomDeck () {
       }
     }
     //at the end of the outside loop, put the cards back newArray to shuffle it again
-    arrayCards = newArray;
+    this.arrayCards = newArray;
     newArray = [];
   }
 
   console.log(newArray);
-  console.log(arrayCards);
-  return arrayCards;
+  console.log(this.arrayCards);
+  return this;
 }
 
 
