@@ -6,7 +6,7 @@
 
 ##Synopsis
 
-The following project is an **exciting** game of memory (aka concentration) where a player must click on two tiles to find  matching tiles and remember where each match is before the tile filps back over and disappears. Once the user finds a match, the cards stay face up. An additional feature allows the user to choose between three exciting board sizes for a variety of experience levels. Additionally, the user can now try to beat their best time for finding all the matches with the addition of a timer.
+The following project is an **exciting** game of memory (aka concentration) where a player must click on two tiles to find  matching tiles and remember where each match is before the tile flips back over and disappears. Once the user finds a match, the cards stay face up. An additional feature allows the user to choose between three exciting board sizes for a variety of experience levels. Additionally, the user can now try to beat their best time for finding all the matches with the addition of a timer.
 
 
 ##Code Example
