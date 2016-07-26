@@ -1,19 +1,15 @@
+```
+#Memory-Matrix
 
-//currently working on refactoring. There is a refactoring branch, but it is not fully functional.
+[A game of concentration, programmed in JavaScript & jQuery.]
+(https://github.com/rmilford/Memory-Matrix)
 
-Memory-Matrix
+##Synopsis
 
-A game of concentration, programmed in jQuery & JavaScript.
-https://github.com/rmilford/Memory-Matrix
-
-Synopsis
-
-The following project is an <strong>exciting</strong> game of memory (aka concentration) where a player must click on two tiles to find match and remember where the matches are before they disappear and clicking on two new tiles can be clicked on. Once the user finds a match, the cards stay face up. And with a new feature, the user can now choose between three exciting board sizes for all experience levels. Additionally, the user can now try to beat their best time with the new 'timer' feature that was recently added as a feature.
+The following project is an **exciting** game of memory (aka concentration) where a player must click on two tiles to find  matching tiles and remember where each match is before the tile filps back over and disappears. Once the user finds a match, the cards stay face up. An additional feature allows the user to choose between three exciting board sizes for a variety of experience levels. Additionally, the user can now try to beat their best time for finding all the matches with the addition of a timer.
 
 
-Code Example
-
-Show what the library does as concisely as possible, developers should be able to figure out <strong>how</strong> your project solves their problem by looking at the code example. Make sure the API you are showing off is obvious, and that your code is short and concise.
+##Code Example
 
 This program uses a jQuery library. The following code is a snippet of code that generates the size of the board based on the user's input. The function 'makingTileBoard' says, index which button the user clicks on and save it into a variable called 'difficulty.' Then, if the user clicked on the first button on the page, the variable size is 4, if they click on the second button, size is 5, and if they click on the third button, size is 6. Then, the based on which button they clicked on, the computer generates a row based on the variable size. The output of the for loop is then dynamic based on the users input. The inside of the for loop is a boolean that says, 'newRow' returns true when i is divisible by size and has remainder of zero. When newRow returns true, the program changes the div color of the new row and pops the old color of the div out.
 
@@ -51,12 +47,12 @@ function makingTileBoard (){
 }
 
 
-Motivation
+##Motivation
 
 The motivation behind this project was learning more about my strengths and weaknesses as a new programmer trying to build a small application for the first time and find out about the struggles I experienced in the process. This was also a chance to practice wireframing, pseudocoding, experimenting with jQuery library, learning more about the capabilities of JavaScript's use in the browser, and even having a little fun with writing my own test specs with Jasmine. 
 
 
-Tests
+##Tests
 
 In this project, there are Jasmine tests used as a framework to test the code that can be tested on a local server using testem, a JSON package. An example of the test suite should look like the following:
 
@@ -71,6 +67,8 @@ describe("createDeck", function() {
 
 
 
-Contributors
+##Contributors
 
-If you want more information on the project, you can reach out to the main developer on Twitter @rebekahmilford
+If you want more information on the project, you can reach out to the developer on Twitter @rebekahmilford
+
+```
