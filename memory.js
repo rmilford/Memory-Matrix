@@ -34,8 +34,9 @@ function makingTileBoard (){
       console.log(i)
       //how do i make the array of cards inside these nested for loops
       arrayCards.push(Math.floor((i)/2));
-      $("#memoryBoard").append('<div class="tile" data-new-row="'+newRow+'"  style="background-color:'+currentColor+';"></div>');
-  }
+//      $("#memoryBoard").append('<div class="tile" data-new-row="'+newRow+'"  style="background-color:'+currentColor+';"></div>');
+      $("#memoryBoard").append('<div class="container" data-new-row="'+newRow+'">   <div id="cube"><figure class="front"></figure><figure class="back"></figure><figure class="right"></figure><figure class="left"></figure><figure class="top"></figure><figure class="bottom"></figure></div></div>');
+    }
   //this loops makes the array of cards
 
   // for(var i = 0; i < (size*(size-1)/2); i++) {
@@ -45,6 +46,9 @@ function makingTileBoard (){
   $(".tile").on("click", pickCard);
   //when a user click on a card,
  // $(".tile").on("click", startTimer);
+
+  $('figure').on("click", rotateCube);  
+
   arrayCards = randomDeck(arrayCards);
   startTimer();
 }
@@ -74,6 +78,35 @@ function loadGame (){
 
 }
 
+function rotateCube () {
+  var myCube = $(this).parent();
+  console.log(this);
+  console.log(myCube);
+
+  if (!(myCube.hasClass('disabled')) && !myCube.hasClass('flip')) {
+    if (numCardsFaceUp < 2) {
+      var divIndex = $('#memoryBoard #cube').index(myCube);
+      cardPair.push(divIndex);
+      myCube.addClass( 'flip' );
+      myCube.children('figure').eq(1).text(arrayCards[divIndex]);
+      numCardsFaceUp++;
+      console.log(divIndex);
+      myCube.removeClass( 'show-front' );
+      myCube.addClass( 'show-back' );
+      if (numCardsFaceUp === 2) {
+        compareCards();
+      }
+
+    }
+    else {
+            $('.flip').removeClass('flip').removeClass('show-back').addClass('show-front');
+      numCardsFaceUp = 0;
+    //get rid of the two cards already stored in cardPair
+      cardPair.pop();
+      cardPair.pop();
+    }
+  }
+}
 
 function pickCard () {
   //alert('you are inside "pickCard func"');
@@ -121,21 +154,24 @@ function compareCards () {
     userPoints++;
     //access cards that are flipped and disable them so they remain face up
     $('.flip').addClass('disabled').removeClass('flip');
-
     console.log(userPoints);
 
 
   }
 //if two cards have been picked but dont match, they will be automatically put face down
   var autoFlipCards = setTimeout(function(){
-    $(".flip").html('');
+//    $(".flip").html('');
     // alert('flipping!')
-    $(".flip").removeClass('flip');
+            $('.flip').removeClass('show-back').addClass('show-front').removeClass('flip');
+
+//    $(".flip").removeClass('flip');
     numCardsFaceUp = 0;
     cardPair.pop();
     cardPair.pop();
   }, 1300);
-
+  if (userPoints=== (size*(size-1)/2)) {
+    promptWinner();
+  }
 }
 
 //This function will randomize the order of cards of an input array
@@ -167,9 +203,14 @@ function randomDeck (arrayCards) {
 
 
 function promptWinner() {
-  alert('You win!');
   stopTimer();
+setTimeout(function() {
+  //your code to be executed after 1 second
 
+    if (confirm('You win!  Play again?')) {
+      location.reload();
+    }
+  }, 1500);
 }
 
 function playGame () {
@@ -185,7 +226,7 @@ function playGame () {
 var clock;
 
 
-  function startTimer (){
+function startTimer (){
   clock = setInterval(tictac, 1000);
 
 }
@@ -193,7 +234,8 @@ var clock;
 function stopTimer (){
   //debugger;
   var clock =  $(".clock").html();
-  $(".clock").html(clock);
+  $(".clock").html(clock).addClass('clock_stop').removeClass('clock');
+
 
 ;
 }
@@ -203,7 +245,16 @@ function tictac(){
 counter++;
 var min= Math.floor(counter/60);
 var sec= counter % 60;
- $(".clock").html(min + ":" + sec);
+  if (sec===1) {
+    $(".clock").html(min + ":0" + sec); 
+//    init();
+  }
+  else if (sec>9) {
+    $(".clock").html(min + ":" + sec);
+  }
+  else {
+    $(".clock").html(min + ":0" + sec); 
+  }
 }
 function resetGame(){
 
